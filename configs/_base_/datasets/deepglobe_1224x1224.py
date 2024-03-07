@@ -19,17 +19,20 @@ train_pipeline = [
 ]
 test_pipeline = [
     dict(type='LoadImageFromFile'),
-    dict(
-        type='MultiScaleFlipAug',
-        scales=(2448, 2448),
-        allow_flip=False,
-        transforms=[
-            dict(type='Resize', scale=(2448, 2448), keep_ratio=True),
-            dict(type='RandomFlip', prob=0.5),
-            dict(type='Normalize', **img_norm_cfg),
-            dict(type='ImageToTensor', keys=['img']),
-            dict(type='Collect', keys=['img']),
-        ])
+    dict(type='Resize', scale=(2448, 2448), keep_ratio=True),
+    dict(type='PackSegInputs')
+    # dict(type='LoadImageFromFile'),
+    # dict(
+    #     type='MultiScaleFlipAug',
+    #     scales=(2448, 2448),
+    #     allow_flip=False,
+    #     transforms=[
+    #         dict(type='Resize', scale=(2448, 2448), keep_ratio=True),
+    #         dict(type='RandomFlip', prob=0.5),
+    #         dict(type='Normalize', **img_norm_cfg),
+    #         dict(type='ImageToTensor', keys=['img']),
+    #         dict(type='Collect', keys=['img']),
+    #     ])
 ]
 train_dataloader = dict(
     batch_size=2,
