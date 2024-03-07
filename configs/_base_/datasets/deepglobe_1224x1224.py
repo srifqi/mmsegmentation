@@ -31,18 +31,36 @@ test_pipeline = [
             dict(type='Collect', keys=['img']),
         ])
 ]
-data = dict(
-    samples_per_gpu=2,
-    workers_per_gpu=8,
-    train=dict(
+train_dataloader = dict(
+    batch_size=2,
+    num_workers=4,
+    persistent_workers=True,
+    sampler=dict(type='InfiniteSampler', shuffle=True),
+    dataset=dict(
         type=dataset_type,
         data_root=data_root,
-        pipeline=train_pipeline),
-    val=dict(
+        data_prefix=dict(
+            img_path='img_dir/train', seg_map_path='rgb2id/train'),
+        pipeline=train_pipeline))
+val_dataloader = dict(
+    batch_size=1,
+    num_workers=4,
+    persistent_workers=True,
+    sampler=dict(type='DefaultSampler', shuffle=False),
+    dataset=dict(
         type=dataset_type,
         data_root=data_root,
-        pipeline=test_pipeline),
-    test=dict(
+        data_prefix=dict(
+            img_path='img_dir/val', seg_map_path='rgb2id/val'),
+        pipeline=test_pipeline))
+test_dataloader = dict(
+    batch_size=1,
+    num_workers=4,
+    persistent_workers=True,
+    sampler=dict(type='DefaultSampler', shuffle=False),
+    dataset=dict(
         type=dataset_type,
         data_root=data_root,
+        data_prefix=dict(
+            img_path='img_dir/test', seg_map_path='rgb2id/test'),
         pipeline=test_pipeline))
