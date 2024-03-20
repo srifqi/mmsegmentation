@@ -2,6 +2,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from mmseg.registry import MODELS
 
 from mmcv.cnn import ConvModule
 from .cascade_decode_head import BaseCascadeDecodeHead
