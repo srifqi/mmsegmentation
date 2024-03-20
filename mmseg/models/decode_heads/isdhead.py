@@ -5,7 +5,7 @@ import torch.nn.functional as F
 
 from mmcv.cnn import ConvModule
 from .cascade_decode_head import BaseCascadeDecodeHead
-from .stdc_head import ShallowNet
+from .stdc_head_2 import ShallowNet
 
 
 class SegmentationHead(nn.Module):
