@@ -2,6 +2,8 @@
 # import time
 import torch
 from torch import nn
+from mmseg.registry import MODELS
+
 from .encoder_decoder import EncoderDecoder
 from ..utils import resize
 from ...utils.misc import add_prefix

@@ -1,6 +1,7 @@
 # For ISDNet
 import torch
 import torch.nn as nn
+from mmseg.registry import MODELS
 from mmcv.cnn import ConvModule
 import warnings
 
