@@ -12,7 +12,7 @@ from torch.utils.data import Dataset
 
 from mmseg.evaluation import eval_metrics
 from mmseg.registry import DATASETS
-from .pipelines.compose import Compose
+from mmcv.transforms import Compose
 
 
 @DATASETS.register_module()
