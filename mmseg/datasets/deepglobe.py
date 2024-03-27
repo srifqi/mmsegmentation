@@ -1,6 +1,4 @@
 # For ISDNet
-import os.path as osp
-
 from mmseg.registry import DATASETS
 from .basesegdataset import BaseSegDataset
 
@@ -19,7 +17,6 @@ class DeepGlobeDataset(BaseSegDataset):
     def __init__(self,
                  img_suffix='_sat.jpg',
                  seg_map_suffix='_mask.png',
-                 **kwargs):
+                 **kwargs) -> None:
         super().__init__(
             img_suffix=img_suffix, seg_map_suffix=seg_map_suffix, **kwargs)
-        assert osp.exists(self.img_dir)
