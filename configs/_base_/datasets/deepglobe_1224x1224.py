@@ -21,11 +21,11 @@ test_pipeline = [
     dict(type='LoadImageFromFile'),
     dict(
         type='MultiScaleFlipAug',
-        img_scale=(2448, 2448),
-        flip=False,
+        scales=(2448, 2448),
+        allow_flip=False,
         transforms=[
-            dict(type='Resize', keep_ratio=True),
-            dict(type='RandomFlip'),
+            dict(type='Resize', scale=(2448, 2448), keep_ratio=True),
+            dict(type='RandomFlip', prob=0.5),
             dict(type='Normalize', **img_norm_cfg),
             dict(type='ImageToTensor', keys=['img']),
             dict(type='Collect', keys=['img']),
