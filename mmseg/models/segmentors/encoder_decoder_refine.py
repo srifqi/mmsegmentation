@@ -65,19 +65,37 @@ class EncoderDecoderRefine(EncoderDecoder):
         # 目前的计划：
         # 大分辨率图像：参数传入的image， 输入refine_head中
         # 小分辨率图像：参数传入的image下采样到原来的0.25倍数，输入feature_extractor, 即原有的分支中
+        print('[EncoderDecoderRefine encode_decode()] img.shape:')
+        print(img.shape)
         if self.is_frequency:
             deeplab_inputs = self.lap_prymaid_conv.pyramid_decom(img)[0]
             img_os2 = nn.functional.interpolate(deeplab_inputs, size=[img.shape[-2]//self.down_scale, img.shape[-1]//self.down_scale])
         else:
             img_os2 = nn.functional.interpolate(img, size=[img.shape[-2]//self.down_scale, img.shape[-1]//self.down_scale])
-        
+
+        print('[EncoderDecoderRefine encode_decode()] img_os2.shape:')
+        print(img_os2.shape)
+
         if self.refine_input_ratio == 1.:
             img_refine = img
         elif self.refine_input_ratio < 1.:
             img_refine = nn.functional.interpolate(img, size=[int(img.shape[-2] * self.refine_input_ratio), int(img.shape[-1] * self.refine_input_ratio)])
+
+        print('[EncoderDecoderRefine encode_decode()] img_refine.shape:')
+        print(img_refine.shape)
+
         # torch.cuda.synchronize()
         # start_time1 = time.perf_counter()
         x = self.extract_feat(img_os2)
+        print('[EncoderDecoderRefine encode_decode()] x.shape:')
+        for xi in x:
+            print(xi.shape)
+
+        print('[EncoderDecoderRefine encode_decode()] img_metas:')
+        print(img_metas)
+
+        print('[EncoderDecoderRefine encode_decode()] self.test_cfg:')
+        print(self.test_cfg)
 
         # 这里先假设就是只有一个decoder，每个decoder应该返回一组feature map或者是list
         # fm_decoder是decode返回的特征图，或者是一个特征图的list
